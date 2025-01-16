@@ -13,6 +13,19 @@ The SOW includes detailed steps for:
    Create Key Pairs for ec2 instances
 
 2. Create Ec2 instances (tomcat, mysql, Rabbitmq, memcached) with appropriate security groups and key pairs for ssh connections
-   Setup all services using user data scripts in resources folder 
-3.
+   Setup all services using user data scripts in resources folder
+
+3. Setup DNS Route 53 for private hosted zone  
+   Create host zone and give domain name 
+   Create records with the same ec2 names with A record and ip private of ec2 
+
+4.Create application load balancer
+ taraget group: ec2 instances web app
+ crete record for the lb in the domain name provider or route 53
+
+.5 Create autoscaling group
+   create updated ami for ec2 app
+   lanched template 
+   configure autoscaling group with autoscaling policy
+
 
