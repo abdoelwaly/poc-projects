@@ -13,5 +13,6 @@ The SOW includes detailed steps for:
    Create Key Pairs for ec2 instances
 
 2. Create Ec2 instances (tomcat, mysql, Rabbitmq, memcached) with appropriate security groups and key pairs for ssh connections
-   Setup all services using user data scripts in resources folder
+   Setup all services using user data scripts in resources folder 
+3.
 
