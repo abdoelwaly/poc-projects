@@ -81,3 +81,7 @@ The `resources` folder contains the user data scripts for setting up each servic
 ---
 
 That's it! This document provides a roadmap for the proof of concept. Good luck with the project! 👍
+
+**🔗 References:**
+- [AWS Documentation](https://aws.amazon.com/documentation/)
+- [Route 53 User Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/)
