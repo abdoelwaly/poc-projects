@@ -1,17 +1,83 @@
-//This Scope of Work (SOW) document outlines the objectives, deliverables, and implementation steps required to design, deploy, and configure a secure and scalable web application environment in the AWS cloud.
+# 🌐 AWS Web Application Deployment - Scope of Work (SOW) 📄
 
-NOTE: This project is a proof of concept and all resources on Default VPC same subnet.
+## 📑 Scope of Work: AWS Web Application Environment (Proof of Concept) ☁️
 
-The SOW includes detailed steps for:
+This README outlines the Scope of Work (SOW) for building a secure and scalable web application environment on AWS! 🎉
 
-Create Security Groups AND Key Pairs sg-applb: for application load balancer allow http and https from anywhere sg-app-ec2: for ec2 tomcat instances allow port 8080 source sg-applb, allow port 22 ssh my ip sg-backend-ec2: for backend ec2 instances allow ports for mysql, Rabbitmq, memcached or all traffic source sg-app-ec2 and all traffic source sg-backend-ec2
+**⚠️  Important Note:** This project is a **proof of concept**. All resources will reside within the **Default VPC** and use the **same subnet** for simplicity.
 
-Create Key Pairs for ec2 instances
+## 🎯 Objectives
 
-Create Ec2 instances (tomcat, mysql, Rabbitmq, memcached) with appropriate security groups and key pairs for ssh connections Setup all services using user data scripts in resources folder
+Design, deploy, and configure a secure, scalable web application environment in AWS.
 
-Setup DNS Route 53 for private hosted zone Create host zone and give domain name Create records with the same ec2 names with A record and ip private of ec2
+## ➡️ Deliverables
 
-4.Create application load balancer taraget group: ec2 instances web app crete record for the lb in the domain name provider or route 53
+*   Fully configured AWS environment with:
+    *   EC2 instances for Tomcat, MySQL, RabbitMQ, and Memcached 🚀
+    *   Application Load Balancer (ALB) ⚖️
+    *   Auto Scaling Group 🔄
+    *   Configured Route 53 Private Hosted Zone 🗺️
+    *   Necessary Security Groups and Key Pairs 🔐
+    *   User data scripts for service setup 📜
 
-Create autoscaling group create updated ami for ec2 app lanched template configure autoscaling group with autoscaling policy
+## 🛠️ Implementation Steps
+
+### 1. Security Groups & Key Pairs 🔐
+
+*   **Create Security Groups:**
+    *   `sg-applb`: 🌐 For Application Load Balancer - Allow HTTP (80) and HTTPS (443) from anywhere (0.0.0.0/0).
+    *   `sg-app-ec2`: 🐱‍💻 For EC2 Tomcat instances - Allow port 8080 from `sg-applb`, Allow SSH (22) from *your IP*.
+    *   `sg-backend-ec2`: 🗄️ For backend EC2 instances (MySQL, RabbitMQ, Memcached) - Allow all traffic from `sg-app-ec2` AND all traffic from `sg-backend-ec2` (or specific ports for MySQL, RabbitMQ, Memcached from `sg-app-ec2`).
+*   **Create Key Pairs:** 🔑
+    *   Generate key pairs for SSH access to EC2 instances.
+
+### 2. EC2 Instances & Service Setup 🖥️
+
+*   **Launch EC2 Instances:**
+    *   Tomcat (Application Server) ☕
+    *   MySQL (Database) 🛢️
+    *   RabbitMQ (Message Queue) 🐇
+    *   Memcached (Caching) ⚡
+*   **Configuration:**
+    *   Assign appropriate Security Groups created in Step 1.
+    *   Associate Key Pairs for SSH access.
+    *   Use user data scripts (found in the `resources` folder 📂) to automatically install and configure services on each instance during boot.
+
+### 3. Route 53 Private Hosted Zone 🗺️
+
+*   **Create Private Hosted Zone:**
+    *   Set up a private hosted zone in Route 53.
+    *   Define a domain name (e.g., `myapp.local`).
+*   **Create Records:**
+    *   For each EC2 instance (Tomcat, MySQL, RabbitMQ, Memcached), create an `A` record mapping its name (e.g., `tomcat.myapp.local`) to its private IP address.
+
+### 4. Application Load Balancer & Target Group ⚖️
+
+*   **Create Application Load Balancer:**
+    *   Set up an ALB.
+*   **Create Target Group:**
+    *   Create a target group for the web application.
+    *   Register the EC2 Tomcat instances as targets.
+*   **Create Route 53 Record (Optional):**
+    *   Create a record for the load balancer in your domain name provider or Route 53, if you need the application to be accessible via a specific domain.
+
+### 5. Auto Scaling Group 🔄
+
+*   **Create AMI:**
+    *   Create an updated Amazon Machine Image (AMI) from a configured EC2 Tomcat instance.
+*   **Launch Template:**
+    *   Create a launch template based on the new AMI.
+    *   Specify the `sg-app-ec2` security group.
+*   **Auto Scaling Group:**
+    *   Configure an Auto Scaling Group using the launch template.
+    *   Set desired, minimum, and maximum capacity.
+    *   Define scaling policies (e.g., based on CPU utilization).
+    *   Associate the Auto Scaling group with the target group create in step 4.
+
+## 📂 Resources Folder
+
+The `resources` folder contains the user data scripts for setting up each service on the EC2 instances.
+
+---
+
+That's it! This document provides a roadmap for the proof of concept. Good luck with the project! 👍
